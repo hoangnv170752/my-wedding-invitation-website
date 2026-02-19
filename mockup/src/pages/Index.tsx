@@ -9,6 +9,7 @@ import WeddingPartySection from "@/components/wedding/WeddingPartySection";
 import RSVPSection from "@/components/wedding/RSVPSection";
 import Footer from "@/components/wedding/Footer";
 import FireworksToggle from "@/components/wedding/FireworksToggle";
+import BackgroundMusic from "@/components/wedding/BackgroundMusic";
 
 const Index = () => {
   return (
@@ -23,7 +24,8 @@ const Index = () => {
       {/* <WeddingPartySection /> */}
       {/* <RSVPSection /> */}
       <Footer />
-      <FireworksToggle />
+      {/* <FireworksToggle /> */}
+      <BackgroundMusic />
     </main>
   );
 };
