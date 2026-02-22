@@ -22,7 +22,7 @@ const Index = () => {
       <EventsSection />
       <GallerySection />
       {/* <WeddingPartySection /> */}
-      {/* <RSVPSection /> */}
+      <RSVPSection />
       <Footer />
       {/* <FireworksToggle /> */}
       <BackgroundMusic />

@@ -91,7 +91,7 @@ const StorySection = () => {
           }`}
         >
           <p className="font-serif-elegant text-lg tracking-[0.2em] uppercase text-muted-foreground">
-            Về chúng tôi
+            Về cặp đôi HoLa
           </p>
           <h2 className="mt-2 font-serif-display text-3xl font-bold md:text-4xl">Câu chuyện tình iu</h2>
           <SectionDivider />
