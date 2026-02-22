@@ -68,7 +68,7 @@ const BackgroundMusic = () => {
         {showHotlineMenu && (
           <div className="mb-2 flex flex-col gap-2 rounded-lg bg-white p-3 shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-200">
             <a
-              href="tel:0123456789"
+              href="tel:0354530616"
               className="flex items-center gap-3 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-wedding-gold/10"
             >
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-white">
@@ -80,7 +80,7 @@ const BackgroundMusic = () => {
               </div>
             </a>
             <a
-              href="tel:0987654321"
+              href="tel:0984924832"
               className="flex items-center gap-3 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-wedding-gold/10"
             >
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500 text-white">
