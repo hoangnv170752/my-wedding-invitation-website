@@ -192,7 +192,7 @@ const RSVPSection = () => {
                       onChange={handleChange}
                       className="h-4 w-4 rounded border-wedding-gold-light text-wedding-gold focus:ring-wedding-gold"
                     />
-                    <span>🎁 Tôi đã gửi tiền mừng cho cặp đôi HoLa</span>
+                    <span>🎁 Chúc cô dâu chú rể trăm năm hạnh phúcc</span>
                   </label>
                   <Button
                     type="submit"

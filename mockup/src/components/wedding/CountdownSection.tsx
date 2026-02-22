@@ -41,11 +41,11 @@ const CountdownSection = () => {
         <p className="font-serif-elegant text-lg tracking-[0.2em] uppercase text-muted-foreground">
           Thời gian đến ngày trọng đại
         </p>
-        <div className="mt-10 flex flex-wrap justify-center gap-4 md:gap-8">
+        <div className="mt-10 grid grid-cols-4 justify-center gap-2 sm:gap-4 md:gap-8 max-w-md mx-auto md:max-w-none md:flex">
           {boxes.map((box) => (
             <div
               key={box.label}
-              className="flex h-24 w-24 flex-col items-center justify-center rounded-lg border border-wedding-gold-light bg-background shadow-sm md:h-32 md:w-32"
+              className="flex h-20 w-full flex-col items-center justify-center rounded-lg border border-wedding-gold-light bg-background shadow-sm sm:h-24 sm:w-24 md:h-32 md:w-32"
             >
               <span className="font-serif-display text-3xl font-bold text-wedding-gold md:text-4xl">
                 {String(box.value).padStart(2, "0")}

@@ -38,6 +38,11 @@ const milestones = [
     title: "Lễ dạm ngõ",
     description: "Lễ dạm ngõ trang trọng được tổ chức tại nhà Thanh Lam, đánh dấu sự gắn kết chính thức giữa hai gia đình và chuẩn bị cho hôn lễ sắp tới."
   },
+  {
+    date: "Tháng 2, 2026",
+    title: "Đón Tết thứ hai cùng nhau",
+    description: "Năm thứ hai đón Tết Nguyên Đán tại Thiệu Hoá, thêm một mùa xuân ấm áp bên gia đình và người thương trước thềm hôn lễ."
+  },
 ];
 
 const TimelineItem = ({
