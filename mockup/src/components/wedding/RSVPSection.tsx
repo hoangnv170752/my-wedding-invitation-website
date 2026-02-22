@@ -94,7 +94,7 @@ const RSVPSection = () => {
           <div className="order-2 lg:order-1">
             <div className="rounded-2xl border border-wedding-gold/20 bg-white p-6 shadow-lg h-full">
               <div className="mb-6 text-center">
-                <h3 className="font-serif-display text-xl font-semibold">Xác nhận tham dự</h3>
+                <h3 className="font-serif-display text-xl font-semibold text-wedding-gold">Xác nhận tham dự</h3>
                 <p className="mt-1 text-sm text-muted-foreground">Vui lòng cho chúng mình biết bạn có thể tham dự không</p>
               </div>
 
