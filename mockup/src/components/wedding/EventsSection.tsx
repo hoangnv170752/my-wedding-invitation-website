@@ -14,7 +14,7 @@ const events = [
     icon: "🍽️",
   },
   {
-    title: "Lễ Ăn Hỏi & Thành Hôn",
+    title: "Lễ Thành Hôn",
     date: "Chủ Nhật, 29 tháng 3 năm 2026",
     lunarDate: "Tức ngày 11 tháng 02 năm Bính Ngọ",
     time: "17:00",

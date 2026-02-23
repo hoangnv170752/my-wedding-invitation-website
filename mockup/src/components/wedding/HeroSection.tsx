@@ -10,7 +10,7 @@ const heroImages = [
 const mobileHeroImages = [
   "/photos/main/SMA_0255.JPG",
   "/photos/main/SMA_9357.JPG",
-  "/photos/main/SMA_0255.JPG"
+  "/photos/main/SMA_9565.JPG"
 ];
 
 // Google Calendar event details
