@@ -107,10 +107,10 @@ const RSVPSection = () => {
                     Cảm ơn {formData.name}!
                   </h3>
                   <p className="mt-2 text-muted-foreground">
-                    {formData.relation === "Gia đình" && "Gia đình là điều quý giá nhất. Cảm ơn bạn đã luôn bên cạnh chúng con!"}
+                    {formData.relation === "Gia đình" && "Gia đình là điều quý giá nhất. Cảm ơn mọi người đã luôn bên cạnh chúng con!"}
                     {formData.relation === "Bạn bè" && "Bạn bè tốt là kho báu. Cảm ơn cậu đã đồng hành cùng cặp đôi HoLa!"}
                     {formData.relation === "Đồng nghiệp" && "Cảm ơn anh / chị đã dành thời gian quý báu để chúc phúc cho chúng em!"}
-                    {formData.relation === "Khác" && "Cảm ơn cậu đã gửi lời chúc tốt đẹp đến cặp đôi HoLa!"}
+                    {formData.relation === "Khác" && "Cảm ơn mọi người đã gửi lời chúc tốt đẹp đến cặp đôi HoLa!"}
                     <br />Hẹn gặp mọi người tại buổi lễ! 💕
                   </p>
                 </div>
