@@ -43,10 +43,10 @@ const CoupleSection = () => {
               Con gái của ông Lê Văn Chiến và bà Dương Thị Liên
             </p>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Cử nhân tốt nghiệp loại giỏi Đại học Luật Hà Nội, chuyên viên nhân sự tại công ty MCredit
+              Cử nhân tốt nghiệp ngành Luật Kinh tế, Đại học Luật Hà Nội, chuyên viên C&B tại công ty Tài chính TNHH MB Shinsei (thương hiệu Mcredit)
             </p>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground italic">
-              "Cô ấy là người con gái đa tài với đôi tay khéo léo, nấu ăn ngon tuyệt vời. Trái tim ấm áp và tấm lòng tốt bụng của cô ấy luôn lan tỏa yêu thương đến mọi người xung quanh."
+              "Cô ấy là người con gái vui vẻ, hoà đồng và lúc nào cũng lan toả nguồn năng lượng tích cực đến mọi người xung quanh! Bật mí là nấu ăn rất ngon, hát hay và chơi cầu lông giỏi"
             </p>
             <div className="mt-4 flex gap-3 text-muted-foreground">
               <a href="https://www.facebook.com/Lam1009" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-wedding-gold"><Facebook size={18} /></a>
@@ -67,10 +67,10 @@ const CoupleSection = () => {
               Con trai của ông Nguyễn Văn Long và bà Nguyễn Thị Huyền
             </p>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Đảng viên dự bị, cử nhân song bằng CNTT và Cơ điện tử, thạc sĩ khoa học, trưởng nhóm lập trình phần mềm ứng dụng tại TT Digital - Công ty Cổ phần bóng đèn Phích nước Rạng Đông
+              Đảng viên dự bị, cử nhân song bằng CNTT và Cơ điện tử, thạc sĩ khoa học, trưởng nhóm lập trình phần mềm ứng dụng tại TT R&D Digital - Công ty Cổ phần bóng đèn Phích nước Rạng Đông
             </p>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground italic">
-              "Anh ấy là người đàn ông trầm tính nhưng sâu sắc, đam mê thể thao và luôn hết mình với mọi việc. Một người bạn đời đáng tin cậy mà bạn có thể dựa vào."
+              "Anh ấy là người đàn ông trầm tính nhưng sâu sắc, đam mê thể thao, có tinh thần trách nhiệm và luôn hết mình với mọi việc. Một người bạn đời đáng tin cậy mà Lam có thể dựa vào."
             </p>
             <div className="mt-4 flex gap-3 text-muted-foreground">
               <a href="https://www.facebook.com/hoang.nguyen.van.0402/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-wedding-gold"><Facebook size={18} /></a>
