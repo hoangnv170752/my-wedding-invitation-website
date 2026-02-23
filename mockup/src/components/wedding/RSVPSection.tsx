@@ -19,8 +19,9 @@ const RSVPSection = () => {
     relation: "",
     attendBride: false,
     attendGroom: false,
-    sentGift: false,
+    notAttending: false,
     wishes: "",
+    sentGift: false,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -49,8 +50,9 @@ const RSVPSection = () => {
           relation: formData.relation,
           attendBride: formData.attendBride ? "Có" : "Không",
           attendGroom: formData.attendGroom ? "Có" : "Không",
-          sentGift: formData.sentGift ? "Có" : "Không",
+          notAttending: formData.notAttending ? "Có" : "Không",
           wishes: formData.wishes,
+          sentGift: formData.sentGift ? "Có" : "Không",
           timestamp: new Date().toLocaleString("vi-VN"),
         }),
       });
@@ -142,7 +144,19 @@ const RSVPSection = () => {
                     </select>
                   </div>
                   <div className="space-y-3">
-                    <label className="block text-sm font-medium text-gray-700">Xác nhận tham dự *</label>
+                    <div className="flex items-center justify-between">
+                      <label className="block text-sm font-medium text-gray-700">Xác nhận tham dự *</label>
+                      <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-500 hover:text-gray-700">
+                        <input
+                          type="checkbox"
+                          name="notAttending"
+                          checked={formData.notAttending}
+                          onChange={handleChange}
+                          className="h-4 w-4 rounded border-gray-300 text-gray-500 focus:ring-gray-400"
+                        />
+                        <span>😢 Rất tiếc không thể tham dự</span>
+                      </label>
+                    </div>
                     <p className="text-xs text-muted-foreground">Tích chọn buổi lễ bạn sẽ tham gia</p>
                     <div className="grid gap-3 sm:grid-cols-2">
                       <label className="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-pink-200 bg-pink-50/50 p-3 transition-all hover:border-pink-400 hover:bg-pink-50 has-[:checked]:border-pink-500 has-[:checked]:bg-pink-100">
