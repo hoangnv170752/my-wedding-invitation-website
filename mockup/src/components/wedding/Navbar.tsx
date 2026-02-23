@@ -32,7 +32,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-4 py-4 md:py-5">
         <a
           href="#home"
-          className="font-serif-display text-xl font-semibold tracking-wide text-wedding-gold md:text-2xl"
+          className="font-vietnam text-xl font-bold tracking-wide text-wedding-gold md:text-2xl"
         >
           H & L
         </a>

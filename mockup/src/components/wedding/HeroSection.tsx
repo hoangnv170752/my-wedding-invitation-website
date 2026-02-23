@@ -7,6 +7,12 @@ const heroImages = [
   "/photos/thaprua-film.jpg"
 ];
 
+const mobileHeroImages = [
+  "/photos/main/SMA_0255.JPG",
+  "/photos/main/SMA_9357.JPG",
+  "/photos/main/SMA_0255.JPG"
+];
+
 // Google Calendar event details
 const createGoogleCalendarLink = () => {
   const eventDetails = {
@@ -21,14 +27,24 @@ const createGoogleCalendarLink = () => {
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const images = isMobile ? mobileHeroImages : heroImages;
 
   const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % heroImages.length);
-  }, []);
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]);
 
   const goToPrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
-  }, []);
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  }, [images.length]);
 
   useEffect(() => {
     const interval = setInterval(goToNext, 5000);
@@ -42,7 +58,7 @@ const HeroSection = () => {
     >
       {/* Background Slider */}
       <div className="absolute inset-0">
-        {heroImages.map((img, index) => (
+        {images.map((img, index) => (
           <img
             key={img}
             src={img}
@@ -74,7 +90,7 @@ const HeroSection = () => {
 
       {/* Dots Indicator */}
       <div className="absolute bottom-20 left-0 right-0 z-20 flex justify-center gap-2">
-        {heroImages.map((_, index) => (
+        {images.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
