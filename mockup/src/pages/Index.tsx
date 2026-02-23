@@ -10,6 +10,7 @@ import RSVPSection from "@/components/wedding/RSVPSection";
 import Footer from "@/components/wedding/Footer";
 import FireworksToggle from "@/components/wedding/FireworksToggle";
 import BackgroundMusic from "@/components/wedding/BackgroundMusic";
+import FloatingWishes from "@/components/wedding/FloatingWishes";
 
 const Index = () => {
   return (
@@ -26,6 +27,7 @@ const Index = () => {
       <Footer />
       {/* <FireworksToggle /> */}
       <BackgroundMusic />
+      <FloatingWishes />
     </main>
   );
 };

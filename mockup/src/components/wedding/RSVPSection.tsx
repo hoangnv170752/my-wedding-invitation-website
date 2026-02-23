@@ -48,19 +48,28 @@ const RSVPSection = () => {
         body: JSON.stringify({
           name: formData.name,
           relation: formData.relation,
-          attendBride: formData.attendBride ? "Có" : "Không",
-          attendGroom: formData.attendGroom ? "Có" : "Không",
+          attendBride: formData.attendBride ? "Có" : "",
+          attendGroom: formData.attendGroom ? "Có" : "",
           notAttending: formData.notAttending ? "Có" : "Không",
-          wishes: formData.wishes,
-          sentGift: formData.sentGift ? "Có" : "Không",
+          wishes: formData.wishes || "Sẽ chúc sau",
+          sentGift: formData.sentGift ? "Có" : "",
           timestamp: new Date().toLocaleString("vi-VN"),
         }),
       });
 
       setSubmitted(true);
+
+      // Toast message tuỳ theo mối quan hệ
+      const toastMessages: Record<string, string> = {
+        "Gia đình": "Gia đình là điều quý giá nhất. Cảm ơn cô/chú/anh/chị đã luôn bên cạnh chúng con!",
+        "Bạn bè": "Bạn bè tốt là kho báu. Cảm ơn cậu đã đồng hành cùng cặp đôi HoLa!",
+        "Đồng nghiệp": "Cảm ơn anh/chị đồng nghiệp đã dành thời gian. Rất mong được gặp anh/chị tại buổi lễ!",
+        "Khác": "Cảm ơn bạn đã phản hồi. Hẹn gặp bạn tại buổi lễ!",
+      };
+
       toast({
         title: "Đã gửi xác nhận! 🎉",
-        description: "Cảm ơn bạn đã phản hồi. Hẹn gặp bạn tại buổi lễ!",
+        description: toastMessages[formData.relation] || toastMessages["Khác"],
       });
     } catch (error) {
       console.error("Error submitting RSVP:", error);
@@ -97,7 +106,7 @@ const RSVPSection = () => {
             <div className="rounded-2xl border border-wedding-gold/20 bg-white p-6 shadow-lg h-full">
               <div className="mb-6 text-center">
                 <h3 className="font-serif-display text-xl font-semibold text-wedding-gold">Xác nhận tham dự</h3>
-                <p className="mt-1 text-sm text-muted-foreground">Vui lòng cho chúng mình biết bạn có thể tham dự không</p>
+                <p className="mt-1 text-sm text-muted-foreground">Vui lòng cho biết bạn có thể tham dự không</p>
               </div>
 
               {submitted ? (
@@ -144,7 +153,7 @@ const RSVPSection = () => {
                     </select>
                   </div>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                       <label className="block text-sm font-medium text-gray-700">Xác nhận tham dự *</label>
                       <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-500 hover:text-gray-700">
                         <input
@@ -206,7 +215,7 @@ const RSVPSection = () => {
                       onChange={handleChange}
                       className="h-4 w-4 rounded border-wedding-gold-light text-wedding-gold focus:ring-wedding-gold"
                     />
-                    <span>🎁 Chúc cô dâu chú rể trăm năm hạnh phúcc</span>
+                    <span>🎁 Gửi quà mừng chúc cô dâu chú rể trăm năm hạnh phúc</span>
                   </label>
                   <Button
                     type="submit"
