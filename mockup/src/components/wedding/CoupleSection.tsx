@@ -42,9 +42,9 @@ const CoupleSection = () => {
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
               Con gái của ông Lê Văn Chiến và bà Dương Thị Liên
             </p>
-            <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            {/* <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
               Cử nhân tốt nghiệp ngành Luật Kinh tế, Đại học Luật Hà Nội, chuyên viên C&B tại công ty Tài chính TNHH MB Shinsei (thương hiệu Mcredit)
-            </p>
+            </p> */}
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground italic">
               "Cô ấy là người con gái vui vẻ, hoà đồng và lúc nào cũng lan toả nguồn năng lượng tích cực đến mọi người xung quanh! Bật mí là nấu ăn rất ngon, hát hay và chơi cầu lông giỏi"
             </p>
@@ -66,9 +66,9 @@ const CoupleSection = () => {
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
               Con trai của ông Nguyễn Văn Long và bà Nguyễn Thị Huyền
             </p>
-            <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            {/* <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
               Đảng viên dự bị, cử nhân song bằng CNTT và Cơ điện tử, thạc sĩ khoa học, trưởng nhóm lập trình phần mềm ứng dụng tại TT R&D Digital - Công ty Cổ phần bóng đèn Phích nước Rạng Đông
-            </p>
+            </p> */}
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground italic">
               "Anh ấy là người đàn ông trầm tính nhưng sâu sắc, đam mê thể thao, có tinh thần trách nhiệm và luôn hết mình với mọi việc. Một người bạn đời đáng tin cậy mà Lam có thể dựa vào."
             </p>
