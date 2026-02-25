@@ -120,6 +120,9 @@ const HeroSection = () => {
         <p className="mt-3 font-serif-elegant text-base tracking-wider opacity-90 md:text-lg animate-fade-in" style={{ animationDelay: "0.5s" }}>
           17:00 - Trung tâm tiệc cưới Hội nghị Mipec Palace - Sảnh tầng 3
         </p>
+        <p className="mt-1 font-serif-elegant text-sm tracking-wider opacity-70 md:text-base animate-fade-in" style={{ animationDelay: "0.6s" }}>
+          Số 229 Tây Sơn, Phường Kim Liên, Hà Nội
+        </p>
         <a
           href={createGoogleCalendarLink()}
           target="_blank"
