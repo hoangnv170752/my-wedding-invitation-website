@@ -1,7 +1,141 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import SectionDivider from "./SectionDivider";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+
+// Lightbox Modal với loading state
+const LightboxModal = ({
+  images,
+  currentIndex,
+  onClose,
+  onPrev,
+  onNext,
+}: {
+  images: string[];
+  currentIndex: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+  }, [currentIndex]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[3000] flex items-center justify-center bg-black/95 p-4"
+      onClick={onClose}
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+        aria-label="Đóng"
+      >
+        <X size={24} />
+      </button>
+
+      {/* Navigation */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onPrev();
+        }}
+        className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
+        aria-label="Ảnh trước"
+      >
+        <ChevronLeft size={28} />
+      </button>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onNext();
+        }}
+        className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
+        aria-label="Ảnh sau"
+      >
+        <ChevronRight size={28} />
+      </button>
+
+      {/* Loading spinner */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-white/20 border-t-white"></div>
+        </div>
+      )}
+
+      {/* Image */}
+      <img
+        src={images[currentIndex]}
+        alt={`Ảnh cưới ${currentIndex + 1}`}
+        className={`max-h-[85vh] max-w-[90vw] rounded-lg object-contain transition-opacity duration-300 ${
+          isLoading ? "opacity-0" : "opacity-100"
+        }`}
+        onClick={(e) => e.stopPropagation()}
+        onLoad={() => setIsLoading(false)}
+      />
+
+      {/* Counter */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-4 py-2 text-sm text-white">
+        {currentIndex + 1} / {images.length}
+      </div>
+    </div>
+  );
+};
+
+// Component ảnh với loading state
+const LazyImage = ({ 
+  src, 
+  alt, 
+  className, 
+  onClick 
+}: { 
+  src: string; 
+  alt: string; 
+  className?: string; 
+  onClick?: () => void;
+}) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  return (
+    <button
+      onClick={onClick}
+      className="group relative aspect-[3/4] overflow-hidden rounded-lg shadow-md transition-all hover:shadow-xl w-full"
+    >
+      {/* Skeleton placeholder */}
+      {!isLoaded && !isError && (
+        <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-wedding-gold/10 to-wedding-gold/5">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-wedding-gold/30 border-t-wedding-gold"></div>
+          </div>
+        </div>
+      )}
+      
+      {/* Actual image */}
+      <img
+        src={src}
+        alt={alt}
+        className={`h-full w-full object-cover transition-all duration-500 group-hover:scale-110 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        } ${className || ""}`}
+        loading="lazy"
+        onLoad={() => setIsLoaded(true)}
+        onError={() => setIsError(true)}
+      />
+      
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-black/0 transition-all group-hover:bg-black/20" />
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+        <span className="rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-wedding-gold">
+          Xem ảnh
+        </span>
+      </div>
+    </button>
+  );
+};
 
 const albumImages = [
   "/photos/album/SMA_9312.JPG",
@@ -76,6 +210,20 @@ const GallerySection = () => {
     (currentPage + 1) * IMAGES_PER_PAGE
   );
 
+  // Preload ảnh trang tiếp theo
+  useEffect(() => {
+    const nextPage = (currentPage + 1) % totalPages;
+    const nextImages = albumImages.slice(
+      nextPage * IMAGES_PER_PAGE,
+      (nextPage + 1) * IMAGES_PER_PAGE
+    );
+    
+    nextImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, [currentPage, totalPages]);
+
   return (
     <>
       <section id="gallery" className="bg-wedding-cream/50 py-20 md:py-28">
@@ -118,24 +266,12 @@ const GallerySection = () => {
               {currentImages.map((img, index) => {
                 const globalIndex = currentPage * IMAGES_PER_PAGE + index;
                 return (
-                  <button
+                  <LazyImage
                     key={img}
+                    src={img}
+                    alt={`Ảnh cưới ${globalIndex + 1}`}
                     onClick={() => openLightbox(globalIndex)}
-                    className="group relative aspect-[3/4] overflow-hidden rounded-lg shadow-md transition-all hover:shadow-xl"
-                  >
-                    <img
-                      src={img}
-                      alt={`Ảnh cưới ${globalIndex + 1}`}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-black/0 transition-all group-hover:bg-black/20" />
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                      <span className="rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-wedding-gold">
-                        Xem rõ hơnn
-                      </span>
-                    </div>
-                  </button>
+                  />
                 );
               })}
             </div>
@@ -166,54 +302,13 @@ const GallerySection = () => {
 
       {/* Lightbox */}
       {lightboxIndex !== null && (
-        <div
-          className="fixed inset-0 z-[3000] flex items-center justify-center bg-black/95 p-4"
-          onClick={closeLightbox}
-        >
-          {/* Close button */}
-          <button
-            onClick={closeLightbox}
-            className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-            aria-label="Đóng"
-          >
-            <X size={24} />
-          </button>
-
-          {/* Navigation */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              lightboxPrev();
-            }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
-            aria-label="Ảnh trước"
-          >
-            <ChevronLeft size={28} />
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              lightboxNext();
-            }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
-            aria-label="Ảnh sau"
-          >
-            <ChevronRight size={28} />
-          </button>
-
-          {/* Image */}
-          <img
-            src={albumImages[lightboxIndex]}
-            alt={`Ảnh cưới ${lightboxIndex + 1}`}
-            className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-
-          {/* Counter */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-4 py-2 text-sm text-white">
-            {lightboxIndex + 1} / {albumImages.length}
-          </div>
-        </div>
+        <LightboxModal
+          images={albumImages}
+          currentIndex={lightboxIndex}
+          onClose={closeLightbox}
+          onPrev={lightboxPrev}
+          onNext={lightboxNext}
+        />
       )}
     </>
   );
