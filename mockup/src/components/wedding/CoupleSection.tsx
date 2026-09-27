@@ -3,12 +3,15 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import SectionDivider from "./SectionDivider";
 import { Facebook, X } from "lucide-react";
 
-const brideImg = "/photos/lam-portrait.JPG";
-const groomImg = "/photos/hoang-portrait.JPG";
+type OptimizedImage = { webp: string; jpg: string };
+
+// Use optimized images
+const brideImg: OptimizedImage = { webp: "/photos-optimized/lam-portrait.webp", jpg: "/photos-optimized/lam-portrait.jpg" };
+const groomImg: OptimizedImage = { webp: "/photos-optimized/hoang-portrait.webp", jpg: "/photos-optimized/hoang-portrait.jpg" };
 
 const CoupleSection = () => {
   const { ref, isVisible } = useScrollAnimation();
-  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+  const [lightboxImg, setLightboxImg] = useState<OptimizedImage | null>(null);
 
   return (
     <section id="couple" className="py-20 md:py-28">
@@ -35,7 +38,10 @@ const CoupleSection = () => {
               onClick={() => setLightboxImg(brideImg)}
               className="h-56 w-56 overflow-hidden rounded-full border-4 border-wedding-gold-light shadow-lg transition-transform hover:scale-105 md:h-64 md:w-64 cursor-pointer"
             >
-              <img src={brideImg} alt="Cô dâu" className="h-full w-full object-cover object-top scale-125" />
+              <picture>
+                <source srcSet={brideImg.webp} type="image/webp" />
+                <img src={brideImg.jpg} alt="Cô dâu" className="h-full w-full object-cover object-top scale-125" loading="lazy" />
+              </picture>
             </button>
             <h3 className="mt-6 font-serif-display text-2xl font-semibold">Lê Thị Thanh Lam</h3>
             <p className="mt-1 font-serif-elegant text-base italic text-wedding-gold">Cô dâu</p>
@@ -59,7 +65,10 @@ const CoupleSection = () => {
               onClick={() => setLightboxImg(groomImg)}
               className="h-56 w-56 overflow-hidden rounded-full border-4 border-wedding-gold-light shadow-lg transition-transform hover:scale-105 md:h-64 md:w-64 cursor-pointer"
             >
-              <img src={groomImg} alt="Chú rể" className="h-full w-full object-cover" />
+              <picture>
+                <source srcSet={groomImg.webp} type="image/webp" />
+                <img src={groomImg.jpg} alt="Chú rể" className="h-full w-full object-cover" loading="lazy" />
+              </picture>
             </button>
             <h3 className="mt-6 font-serif-display text-2xl font-semibold">Nguyễn Văn Hoàng</h3>
             <p className="mt-1 font-serif-elegant text-base italic text-wedding-gold">Chú rể</p>
@@ -92,12 +101,14 @@ const CoupleSection = () => {
           >
             <X size={24} />
           </button>
-          <img
-            src={lightboxImg}
-            alt="Full size"
-            className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
+          <picture onClick={(e) => e.stopPropagation()}>
+            <source srcSet={lightboxImg.webp} type="image/webp" />
+            <img
+              src={lightboxImg.jpg}
+              alt="Full size"
+              className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
+            />
+          </picture>
         </div>
       )}
     </section>

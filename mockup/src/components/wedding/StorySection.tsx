@@ -2,11 +2,16 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import SectionDivider from "./SectionDivider";
 import { Heart } from "lucide-react";
 
+interface ImageSrc {
+  webp: string;
+  jpg: string;
+}
+
 interface Milestone {
   date: string;
   title: string;
   description: string;
-  images?: string[];
+  images?: ImageSrc[];
 }
 
 const milestones: Milestone[] = [
@@ -54,7 +59,10 @@ const milestones: Milestone[] = [
     date: "29 Tháng 3, 2026",
     title: "Đám cưới",
     description: "Ngày trọng đại nhất cuộc đời - Hoàng và Lam chính thức nên duyên vợ chồng, mở ra chương mới của hành trình hạnh phúc bên nhau.",
-    images: ["/photos/photobooth1.jpeg", "/photos/photobooth2.jpeg"]
+    images: [
+      { webp: "/photos-optimized/photobooth1.webp", jpg: "/photos-optimized/photobooth1.jpg" },
+      { webp: "/photos-optimized/photobooth2.webp", jpg: "/photos-optimized/photobooth2.jpg" }
+    ]
   },
 ];
 
@@ -97,12 +105,15 @@ const TimelineItem = ({
           <div className="mt-4 grid grid-cols-2 gap-2">
             {milestone.images.map((img, i) => (
               <div key={i} className="overflow-hidden rounded-lg">
-                <img
-                  src={img}
-                  alt={`${milestone.title} ${i + 1}`}
-                  className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-                  loading="lazy"
-                />
+                <picture>
+                  <source srcSet={img.webp} type="image/webp" />
+                  <img
+                    src={img.jpg}
+                    alt={`${milestone.title} ${i + 1}`}
+                    className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </picture>
               </div>
             ))}
           </div>

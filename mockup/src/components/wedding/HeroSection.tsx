@@ -1,16 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
 import { ChevronDown, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 
+// Use optimized images with WebP support
 const heroImages = [
-  "/photos/thaprua-main.jpg",
-  "/photos/studio-main-1.jpg",
-  "/photos/thaprua-film.jpg"
+  { webp: "/photos-optimized/thaprua-main.webp", jpg: "/photos-optimized/thaprua-main.jpg" },
+  { webp: "/photos-optimized/studio-main-1.webp", jpg: "/photos-optimized/studio-main-1.jpg" },
+  { webp: "/photos-optimized/thaprua-film.webp", jpg: "/photos-optimized/thaprua-film.jpg" }
 ];
 
 const mobileHeroImages = [
-  "/photos/main/SMA_0255.JPG",
-  "/photos/main/SMA_9357.JPG",
-  "/photos/main/SMA_9565.JPG"
+  { webp: "/photos-optimized/main/SMA_0255.webp", jpg: "/photos-optimized/main/SMA_0255.jpg" },
+  { webp: "/photos-optimized/main/SMA_9357.webp", jpg: "/photos-optimized/main/SMA_9357.jpg" },
+  { webp: "/photos-optimized/main/SMA_9565.webp", jpg: "/photos-optimized/main/SMA_9565.jpg" }
 ];
 
 // Google Calendar event details
@@ -59,15 +60,22 @@ const HeroSection = () => {
       {/* Background Slider */}
       <div className="absolute inset-0">
         {images.map((img, index) => (
-          <img
-            key={img}
-            src={img}
-            alt={`Wedding hero background ${index + 1}`}
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+          <picture
+            key={img.jpg}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
               index === currentIndex ? "opacity-100" : "opacity-0"
             }`}
-            loading={index === 0 ? "eager" : "lazy"}
-          />
+          >
+            <source srcSet={img.webp} type="image/webp" />
+            <img
+              src={img.jpg}
+              alt={`Wedding hero background ${index + 1}`}
+              className="h-full w-full object-cover"
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "auto"}
+              decoding={index === 0 ? "sync" : "async"}
+            />
+          </picture>
         ))}
         <div className="absolute inset-0 bg-black/40" />
       </div>

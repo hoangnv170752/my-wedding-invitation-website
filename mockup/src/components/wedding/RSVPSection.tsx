@@ -256,9 +256,10 @@ const RSVPSection = () => {
                   </div>
                   <div className="mx-auto mb-3 h-36 w-36 overflow-hidden rounded-xl border-4 border-blue-200 bg-white p-1.5 shadow-inner">
                     <img
-                      src="/photos/qr/hoangqr.jpg"
+                      src="/photos-optimized/qr/hoangqr.png"
                       alt="QR chuyển khoản nhà trai"
                       className="h-full w-full object-contain"
+                      loading="lazy"
                     />
                   </div>
                   <p className="text-sm font-bold text-gray-800">Nguyễn Văn Hoàng</p>
@@ -272,9 +273,10 @@ const RSVPSection = () => {
                   </div>
                   <div className="mx-auto mb-3 h-36 w-36 overflow-hidden rounded-xl border-4 border-pink-200 bg-white p-1.5 shadow-inner">
                     <img
-                      src="/photos/qr/lamqr.jpg"
+                      src="/photos-optimized/qr/lamqr.png"
                       alt="QR chuyển khoản nhà gái"
                       className="h-full w-full object-contain"
+                      loading="lazy"
                     />
                   </div>
                   <p className="text-sm font-bold text-gray-800">Lê Thị Thanh Lam</p>

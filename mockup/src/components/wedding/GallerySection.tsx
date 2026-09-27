@@ -3,7 +3,9 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import SectionDivider from "./SectionDivider";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
-// Lightbox Modal với loading state
+type AlbumImage = { thumbnail: { webp: string; jpg: string }; full: { webp: string; jpg: string } };
+
+// Lightbox Modal với loading state - uses full-size optimized images
 const LightboxModal = ({
   images,
   currentIndex,
@@ -11,7 +13,7 @@ const LightboxModal = ({
   onPrev,
   onNext,
 }: {
-  images: string[];
+  images: AlbumImage[];
   currentIndex: number;
   onClose: () => void;
   onPrev: () => void;
@@ -22,6 +24,8 @@ const LightboxModal = ({
   useEffect(() => {
     setIsLoading(true);
   }, [currentIndex]);
+
+  const currentImage = images[currentIndex].full;
 
   return (
     <div
@@ -66,16 +70,18 @@ const LightboxModal = ({
         </div>
       )}
 
-      {/* Image */}
-      <img
-        src={images[currentIndex]}
-        alt={`Ảnh cưới ${currentIndex + 1}`}
-        className={`max-h-[85vh] max-w-[90vw] rounded-lg object-contain transition-opacity duration-300 ${
-          isLoading ? "opacity-0" : "opacity-100"
-        }`}
-        onClick={(e) => e.stopPropagation()}
-        onLoad={() => setIsLoading(false)}
-      />
+      {/* Image with WebP support */}
+      <picture onClick={(e) => e.stopPropagation()}>
+        <source srcSet={currentImage.webp} type="image/webp" />
+        <img
+          src={currentImage.jpg}
+          alt={`Ảnh cưới ${currentIndex + 1}`}
+          className={`max-h-[85vh] max-w-[90vw] rounded-lg object-contain transition-opacity duration-300 ${
+            isLoading ? "opacity-0" : "opacity-100"
+          }`}
+          onLoad={() => setIsLoading(false)}
+        />
+      </picture>
 
       {/* Counter */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-4 py-2 text-sm text-white">
@@ -85,16 +91,18 @@ const LightboxModal = ({
   );
 };
 
-// Component ảnh với loading state
-const LazyImage = ({ 
-  src, 
-  alt, 
-  className, 
-  onClick 
-}: { 
-  src: string; 
-  alt: string; 
-  className?: string; 
+type ImageSrc = { webp: string; jpg: string };
+
+// Component ảnh với loading state - uses optimized thumbnails
+const LazyImage = ({
+  src,
+  alt,
+  className,
+  onClick
+}: {
+  src: ImageSrc;
+  alt: string;
+  className?: string;
   onClick?: () => void;
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -113,19 +121,23 @@ const LazyImage = ({
           </div>
         </div>
       )}
-      
-      {/* Actual image */}
-      <img
-        src={src}
-        alt={alt}
-        className={`h-full w-full object-cover transition-all duration-500 group-hover:scale-110 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        } ${className || ""}`}
-        loading="lazy"
-        onLoad={() => setIsLoaded(true)}
-        onError={() => setIsError(true)}
-      />
-      
+
+      {/* Actual image with WebP support */}
+      <picture>
+        <source srcSet={src.webp} type="image/webp" />
+        <img
+          src={src.jpg}
+          alt={alt}
+          className={`h-full w-full object-cover transition-all duration-500 group-hover:scale-110 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          } ${className || ""}`}
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setIsLoaded(true)}
+          onError={() => setIsError(true)}
+        />
+      </picture>
+
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-black/0 transition-all group-hover:bg-black/20" />
       <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
@@ -137,38 +149,25 @@ const LazyImage = ({
   );
 };
 
-const albumImages = [
-  "/photos/album/SMA_9312.JPG",
-  "/photos/album/SMA_9357.JPG",
-  "/photos/album/SMA_9368.JPG",
-  "/photos/album/SMA_9386.JPG",
-  "/photos/album/SMA_9502.JPG",
-  "/photos/album/SMA_9516.JPG",
-  "/photos/album/SMA_9053.JPG",
-  "/photos/album/SMA_9102.JPG",
-  "/photos/album/SMA_8871.JPG",
-  "/photos/album/SMA_9124.JPG",
-  "/photos/album/SMA_9149.JPG",
-  "/photos/album/SMA_9205.JPG",
-  "/photos/album/SMA_9560.JPG",
-  "/photos/album/SMA_9565.JPG",
-  "/photos/album/SMA_9605.JPG",
-  "/photos/album/SMA_9726.JPG",
-  "/photos/album/SMA_9791.JPG",
-  "/photos/album/SMA_9864.JPG",
-  "/photos/album/SMA_0137.JPG",
-  "/photos/album/SMA_0196.JPG",
-  "/photos/album/SMA_0202.JPG",
-  "/photos/album/SMA_0213.JPG",
-  "/photos/album/SMA_0243.JPG",
-  "/photos/album/SMA_0255.JPG",
-  "/photos/album/000047.JPG",
-  "/photos/album/000048.JPG",
-  "/photos/album/000050.JPG",
-  "/photos/album/000052.JPG",
-  "/photos/album/000053.JPG",
-  "/photos/album/000054.JPG",
+// Generate optimized image paths (thumbnails for grid, full for lightbox)
+const albumImageNames = [
+  "SMA_9312", "SMA_9357", "SMA_9368", "SMA_9386", "SMA_9502", "SMA_9516",
+  "SMA_9053", "SMA_9102", "SMA_8871", "SMA_9124", "SMA_9149", "SMA_9205",
+  "SMA_9560", "SMA_9565", "SMA_9605", "SMA_9726", "SMA_9791", "SMA_9864",
+  "SMA_0137", "SMA_0196", "SMA_0202", "SMA_0213", "SMA_0243", "SMA_0255",
+  "000047", "000048", "000050", "000052", "000053", "000054",
 ];
+
+const albumImages = albumImageNames.map(name => ({
+  thumbnail: {
+    webp: `/photos-optimized/album/thumbnails/${name}.webp`,
+    jpg: `/photos-optimized/album/thumbnails/${name}.jpg`,
+  },
+  full: {
+    webp: `/photos-optimized/album/${name}.webp`,
+    jpg: `/photos-optimized/album/${name}.jpg`,
+  },
+}));
 
 const IMAGES_PER_PAGE = 6;
 
@@ -210,17 +209,18 @@ const GallerySection = () => {
     (currentPage + 1) * IMAGES_PER_PAGE
   );
 
-  // Preload ảnh trang tiếp theo
+  // Preload thumbnails for next page (optimized WebP images are small)
   useEffect(() => {
     const nextPage = (currentPage + 1) % totalPages;
     const nextImages = albumImages.slice(
       nextPage * IMAGES_PER_PAGE,
       (nextPage + 1) * IMAGES_PER_PAGE
     );
-    
-    nextImages.forEach((src) => {
+
+    nextImages.forEach((imgSet) => {
+      // Preload WebP thumbnail (much smaller than original)
       const img = new Image();
-      img.src = src;
+      img.src = imgSet.thumbnail.webp;
     });
   }, [currentPage, totalPages]);
 
@@ -267,8 +267,8 @@ const GallerySection = () => {
                 const globalIndex = currentPage * IMAGES_PER_PAGE + index;
                 return (
                   <LazyImage
-                    key={img}
-                    src={img}
+                    key={img.thumbnail.jpg}
+                    src={img.thumbnail}
                     alt={`Ảnh cưới ${globalIndex + 1}`}
                     onClick={() => openLightbox(globalIndex)}
                   />
