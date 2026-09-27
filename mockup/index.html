@@ -7,13 +7,22 @@
     <meta name="description" content="Thiệp mời đám cưới Văn Hoàng & Thanh Lam - 29/03/2026" />
     <meta name="author" content="Hoàng & Lam" />
 
-    <!-- Preload critical hero image for faster LCP -->
-    <link rel="preload" as="image" href="/photos-optimized/thaprua-main.webp" type="image/webp" />
-    <link rel="preload" as="image" href="/photos-optimized/thaprua-main.jpg" type="image/jpeg" />
+    <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Prefetch next hero images -->
-    <link rel="prefetch" as="image" href="/photos-optimized/studio-main-1.webp" />
-    <link rel="prefetch" as="image" href="/photos-optimized/thaprua-film.webp" />
+    <!-- Load Google Fonts asynchronously (non-blocking) - minimal weights -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400&family=Lato:wght@400&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400&family=Lato:wght@400&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400&family=Lato:wght@400&display=swap" />
+    </noscript>
+
+    <!-- Preload critical hero image for faster LCP - Desktop -->
+    <link rel="preload" as="image" href="/photos-optimized/thaprua-main.webp" type="image/webp" media="(min-width: 768px)" />
+
+    <!-- Preload critical hero image for faster LCP - Mobile -->
+    <link rel="preload" as="image" href="/photos-optimized/main/SMA_0255.webp" type="image/webp" media="(max-width: 767px)" />
 
     <meta property="og:title" content="Hoàng & Lam - Thiệp Cưới" />
     <meta property="og:description" content="Thiệp mời đám cưới Văn Hoàng & Thanh Lam - 29/03/2026" />
